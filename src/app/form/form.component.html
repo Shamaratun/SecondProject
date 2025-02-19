@@ -1,0 +1,49 @@
+<h1>Listing The Information Details Of All Products</h1>
+<form (ngSubmit)="onSubmit()">
+  <table>
+    <div>
+      <label for="snumber">Serial Number:</label>
+      <input type="snumber " placeholder="Enter snumber" name="snumber" id="snumber" [(ngModel)]="u.sNumber"/>
+    </div>
+    <br>
+    <div>
+      <label for="pname">Products name:</label>
+      <input type="pname " placeholder="Enter Products Name" name="pname" id="pname" [(ngModel)]="u.name"/>
+    </div>
+    <br/>
+    <div>
+      <label for="price">Price:</label><input type="number" placeholder="Enter products price" name="price" id="price"
+                                              [(ngModel)]="u.price"/>
+    </div>
+    <br/>
+    <div>
+      <label for="quantity">Quantity:</label>
+      <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" [(ngModel)]="u.quantity"/>
+    </div>
+    <br/>
+    <div>
+      <label for="purchasedate">Purchase Date:</label>
+      <input type="Date" placeholder="Enter purchasedate" name="purchasedate" id="purchasedate"
+             [(ngModel)]="u.purchaseDate">
+    </div>
+    <br>
+    <div>
+      <label for="selldate">Sell Date :</label>
+      <input type="Date" placeholder="Enter selldate" name="selldate" id="selldate" [(ngModel)]="u.sellDate">
+    </div>
+    <div>
+      <label for="seller">Seller: </label>
+      <input type="seller" placeholder="Enter seller" name="seller" id="seller" [(ngModel)]="u.seller">
+    </div>
+    <div>
+      <label for="buyer">Buyer: </label>
+      <input type="buyer" name="buyer" id="buyer" [(ngModel)]="u.buyer"/>
+    </div>
+    <br/>
+    <div>
+
+      <button type="submit" class="btn btn-success">{{ isUpdate ? 'Update' : 'Submit' }}</button>
+
+    </div>
+  </table>
+</form>
