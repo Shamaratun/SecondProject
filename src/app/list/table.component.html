@@ -1,0 +1,43 @@
+<div class="container">
+  <table class="table table-striped" style="text-align: justify;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Purchase Date</th>
+        <th>Sell Date</th>
+        <th>Seller</th>
+        <th>Buyer</th>
+        <th>S.Number</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: justify;">
+      <!-- Keep your @for line, but remember Angular uses *ngFor normally -->
+      @for (manager of Meme; track manager) {
+        <tr>
+          <td>{{ Meme.indexOf(manager) + 1 }}</td>
+          <td>{{ manager.name }}</td>
+          <td style="color: rgb(110, 79, 184);">{{ manager.price }}</td>
+          <td>{{ manager.quantity }}</td>
+          <td style="color: rgb(54, 71, 102);">{{ manager.purchaseDate }}</td>
+          <td>{{ manager.sellDate }}</td>
+          <td style="color: rgb(110, 79, 184);">{{ manager.seller }}</td>
+          <td>{{ manager.buyer }}</td>
+          <td style="color: rgb(110, 79, 184);">{{ manager.sNumber }}</td>
+          <td>
+            <button class="btn btn-primary btn-outline-warning"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                    (click)="editUser(manager)">Update</button>
+            <br>
+            <button class="btn btn-outline-danger btn-secondary"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                    (click)="deleteUser(manager)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

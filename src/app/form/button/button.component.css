@@ -1,0 +1,39 @@
+/* Common button styles */
+button {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px; /* Sufficient padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white; /* Ensuring the text is visible */
+    text-align: center;
+    text-transform: uppercase; /* Optional: make the text uppercase for better readability */
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Green button styles for Submit */
+  .btn-submit {
+    background-color: #28a745; /* Green color */
+  }
+  
+  .btn-submit:hover {
+    background-color: #218838; /* Darker green for hover */
+  }
+  
+  /* Blue button styles for Update */
+  .btn-update {
+    background-color: #007bff; /* Blue color */
+  }
+  
+  .btn-update:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+  }
+  

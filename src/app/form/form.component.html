@@ -1,49 +1,64 @@
 <h1>Listing The Information Details Of All Products</h1>
-<form (ngSubmit)="onSubmit()">
-  <table>
-    <div>
+<div class="container">
+  <form (ngSubmit)="onSubmit()">
+    <div class="boxAlign">
       <label for="snumber">Serial Number:</label>
-      <input type="snumber " placeholder="Enter snumber" name="snumber" id="snumber" [(ngModel)]="u.sNumber"/>
+      <input type="text" placeholder="Enter snumber" name="snumber" id="snumber" [(ngModel)]="u.sNumber"
+        #serialNumber="ngModel" required>
+    
+      <!-- Error Messages using hidden attribute -->
+      <div class="error-message" [hidden]="!serialNumber.errors?.['required'] || serialNumber.touched">
+        Serial Number is required.
+      </div>
+      <div class="error-message" [hidden]="!serialNumber.errors?.['duplicate'] || serialNumber.touched">
+        Serial Number already exists.
+      </div>
     </div>
+    
+
+
     <br>
-    <div>
+    <div class="boxAlign">
       <label for="pname">Products name:</label>
-      <input type="pname " placeholder="Enter Products Name" name="pname" id="pname" [(ngModel)]="u.name"/>
+      <input type="text" placeholder="Enter Products Name" name="pname" id="pname" [(ngModel)]="u.name" />
     </div>
-    <br/>
-    <div>
+    <br />
+    <div class="boxAlign">
       <label for="price">Price:</label><input type="number" placeholder="Enter products price" name="price" id="price"
-                                              [(ngModel)]="u.price"/>
+        [(ngModel)]="u.price" required min="1" />
+      <div class="error-message"
+        *ngIf="productForm.controls['price']?.invalid && productForm.controls['price']?.touched">
+        Price cannot be negative.
+      </div>
     </div>
-    <br/>
-    <div>
+    <br />
+    <div class="boxAlign">
       <label for="quantity">Quantity:</label>
-      <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" [(ngModel)]="u.quantity"/>
+      <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" [(ngModel)]="u.quantity" required
+        min="1" />
     </div>
-    <br/>
-    <div>
+    <br />
+    <div class="boxAlign">
       <label for="purchasedate">Purchase Date:</label>
       <input type="Date" placeholder="Enter purchasedate" name="purchasedate" id="purchasedate"
-             [(ngModel)]="u.purchaseDate">
+        [(ngModel)]="u.purchaseDate">
     </div>
     <br>
-    <div>
+    <div class="boxAlign">
       <label for="selldate">Sell Date :</label>
       <input type="Date" placeholder="Enter selldate" name="selldate" id="selldate" [(ngModel)]="u.sellDate">
-    </div>
-    <div>
+    </div><br>
+    <div class="boxAlign">
       <label for="seller">Seller: </label>
-      <input type="seller" placeholder="Enter seller" name="seller" id="seller" [(ngModel)]="u.seller">
-    </div>
-    <div>
+      <input type="text" placeholder="Enter seller name" name="seller" id="seller" [(ngModel)]="u.seller">
+    </div><br>
+    <div class="boxAlign">
       <label for="buyer">Buyer: </label>
-      <input type="buyer" name="buyer" id="buyer" [(ngModel)]="u.buyer"/>
+      <input type="text" placeholder="Enter buyer name" name="buyer" id="buyer" [(ngModel)]="u.buyer" />
     </div>
-    <br/>
-    <div>
+    <br />
 
-      <button type="submit" class="btn btn-success">{{ isUpdate ? 'Update' : 'Submit' }}</button>
+<app-button></app-button> 
 
-    </div>
-  </table>
-</form>
+  </form>
+</div>
