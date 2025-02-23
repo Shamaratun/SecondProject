@@ -1,12 +1,11 @@
-<h1>Listing The Information Details Of All Products</h1>
 <div class="container">
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" #productForm="ngForm">
+    <h1>Listing The Information Details Of All Products</h1>
+
     <div class="boxAlign">
       <label for="snumber">Serial Number:</label>
       <input type="text" placeholder="Enter snumber" name="snumber" id="snumber" [(ngModel)]="u.sNumber"
         #serialNumber="ngModel" required>
-    
-      <!-- Error Messages using hidden attribute -->
       <div class="error-message" [hidden]="!serialNumber.errors?.['required'] || serialNumber.touched">
         Serial Number is required.
       </div>
@@ -14,51 +13,61 @@
         Serial Number already exists.
       </div>
     </div>
-    
 
-
-    <br>
     <div class="boxAlign">
-      <label for="pname">Products name:</label>
+      <label for="pname">Product Name:</label>
       <input type="text" placeholder="Enter Products Name" name="pname" id="pname" [(ngModel)]="u.name" />
     </div>
-    <br />
+
     <div class="boxAlign">
-      <label for="price">Price:</label><input type="number" placeholder="Enter products price" name="price" id="price"
-        [(ngModel)]="u.price" required min="1" />
-      <div class="error-message"
-        *ngIf="productForm.controls['price']?.invalid && productForm.controls['price']?.touched">
+      <label for="price">Price:</label>
+      <input type="number" placeholder="Enter products price" name="price" id="price" [(ngModel)]="u.price" required min="1" />
+      <div class="error-message" *ngIf="productForm.controls['price']?.invalid && productForm.controls['price']?.touched">
         Price cannot be negative.
       </div>
     </div>
-    <br />
+
     <div class="boxAlign">
       <label for="quantity">Quantity:</label>
-      <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" [(ngModel)]="u.quantity" required
-        min="1" />
+      <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" [(ngModel)]="u.quantity" required min="1" />
+      <div class="error-message" *ngIf="productForm.controls['quantity']?.invalid && productForm.controls['quantity']?.touched">
+        Quantity is required and must be positive.
+      </div>
     </div>
-    <br />
+
     <div class="boxAlign">
       <label for="purchasedate">Purchase Date:</label>
-      <input type="Date" placeholder="Enter purchasedate" name="purchasedate" id="purchasedate"
-        [(ngModel)]="u.purchaseDate">
+      <input type="Date" placeholder="Enter purchasedate" name="purchasedate" id="purchasedate" [(ngModel)]="u.purchaseDate">
     </div>
-    <br>
+
     <div class="boxAlign">
-      <label for="selldate">Sell Date :</label>
+      <label for="selldate">Sell Date:</label>
       <input type="Date" placeholder="Enter selldate" name="selldate" id="selldate" [(ngModel)]="u.sellDate">
-    </div><br>
-    <div class="boxAlign">
-      <label for="seller">Seller: </label>
-      <input type="text" placeholder="Enter seller name" name="seller" id="seller" [(ngModel)]="u.seller">
-    </div><br>
-    <div class="boxAlign">
-      <label for="buyer">Buyer: </label>
-      <input type="text" placeholder="Enter buyer name" name="buyer" id="buyer" [(ngModel)]="u.buyer" />
     </div>
-    <br />
 
-<app-button></app-button> 
+    <div class="boxAlign">
+      <label for="seller">Seller:</label>
+      <input type="text" placeholder="Enter seller name" name="seller" id="seller" [(ngModel)]="u.seller" required />
+      <div class="error-message" *ngIf="productForm.controls['seller']?.invalid && productForm.controls['seller']?.touched">
+        Seller is required.
+      </div>
+    </div>
 
+    <div class="boxAlign">
+      <label for="buyer">Buyer:</label>
+      <input type="text" placeholder="Enter buyer name" name="buyer" id="buyer" [(ngModel)]="u.buyer" required />
+      <div class="error-message" *ngIf="productForm.controls['buyer']?.invalid && productForm.controls['buyer']?.touched">
+        Buyer is required.
+      </div>
+    </div>
+    <div  >
+      <button type="submit"class="btn btn-success">
+        {{ isUpdate ? 'Update' : 'Submit' }}
+      </button>
+    </div>
+    <!-- <div>
+      <app-button></app-button>
+    </div> -->
   </form>
 </div>
+<!-- // [ngClass]="{  'btn-submit': !isUpdate ,'btn-update': isUpdate}" -->

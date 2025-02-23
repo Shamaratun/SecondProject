@@ -27,50 +27,41 @@ productForm: any;
       this.isUpdate = true;
     }
   }
-
   ngOnInit(): void {
-    // Retrieve saved data from localStorage (if available)
-    // this.u.sNumber = Number(localStorage.getItem('sNumber')) || 0;
-    // this.u.name = localStorage.getItem('name') || '';
-    // this.u.price = Number(localStorage.getItem('price')) || 0;
-    // this.u.quantity = Number(localStorage.getItem('quantity')) || 0;
-    // this.u.purchaseDate = new Date(localStorage.getItem('purchaseDate') || '');
-    // this.u.sellDate = new Date(localStorage.getItem('sellDate') || '');
-    // this.u.seller = localStorage.getItem('seller') || '';
-    // this.u.buyer = localStorage.getItem('buyer') || '';
-    console.log(this.u);
-  }
-
-  onSubmit() {
-    let manager: Manager[] = JSON.parse(localStorage.getItem('manager') || '[]');
+    // Check if a manager is passed through state (i.e., it's an update scenario)
     if (this.isUpdate) {
-      // Update the existing user based on serial number
-      manager = manager.map((manager) => (manager.sNumber === this.u.sNumber ? this.u : manager));
-    } else {
-      // Add new user to the list
-      manager.push(this.u);
+      console.log('Editing Manager:', this.u);
     }
-
-    // Save the updated user data to localStorage
-    localStorage.setItem('managers', JSON.stringify(manager));
-
-    // Reset the form object to clear the form after submit
-    this.u = new Manager(0, '', 0, 0, new Date(), new Date(), '', '');
-
-    // Redirect to the table page
-    this.router.navigate(['/table']);
-    // onSubmit() {
-    //   let users: User[] = JSON.parse(localStorage.getItem('user') || '[]');
-    //   if (this.isUpdate) {
-    //     users = users.map((user) => (user.phone == this.u.phone ? this.u : user));
-    //   } else {
-    //     users.push(this.u);
-    //   }
-    //     localStorage.setItem('user', JSON.stringify(users));
-    //     this.u = new User('', 0, '', '');
-    //     //  alert('user added successfully')
-    //     this.router.navigate(['/list']);
-    //   }
-    // }
   }
-}
+  
+
+  // onSubmit() {
+  //   let managers: Manager[] = JSON.parse(localStorage.getItem('managers') || '[]');
+  //   if (this.isUpdate) {
+  //     // Update the existing manager based on serial number (sNumber)
+  //     managers = managers.map(manager => (manager.sNumber === this.u.sNumber ? this.u : manager));
+  //   } else {
+  //   managers.push(this.u);
+    // }
+  
+      onSubmit() {
+        let managers: Manager[] = JSON.parse(localStorage.getItem('managers') || '[]');
+    
+        if (this.isUpdate) {
+          managers = managers.map(manager =>manager.sNumber === this.u.sNumber ? this.u : manager);
+        } else {
+          const newProductId = managers.length > 0 ? Math.max(...managers.map(manager => manager.sNumber)) + 1 : 1;
+          this.u.sNumber= newProductId;
+          managers.push(this.u);
+        }
+    
+    // Save the updated manager list to localStorage
+    localStorage.setItem('managers', JSON.stringify(managers));
+  
+    // Reset the form after submission
+    this.u = new Manager(0, '', 0, 0, new Date(), new Date(), '', '');
+  
+    // Navigate back to the table view
+    this.router.navigate(['/table']);
+  }
+}  
