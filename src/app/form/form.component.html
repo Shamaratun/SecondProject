@@ -6,12 +6,7 @@
       <label for="snumber">Serial Number:</label>
       <input type="text" placeholder="Enter snumber" name="snumber" id="snumber" [(ngModel)]="u.sNumber"
         #serialNumber="ngModel" required>
-      <div class="error-message" [hidden]="!serialNumber.errors?.['required'] || serialNumber.touched">
-        Serial Number is required.
-      </div>
-      <div class="error-message" [hidden]="!serialNumber.errors?.['duplicate'] || serialNumber.touched">
-        Serial Number already exists.
-      </div>
+     
     </div>
 
     <div class="boxAlign">
@@ -30,9 +25,7 @@
     <div class="boxAlign">
       <label for="quantity">Quantity:</label>
       <input type="number" placeholder="Enter quantity" name="quantity" id="quantity" [(ngModel)]="u.quantity" required min="1" />
-      <div class="error-message" *ngIf="productForm.controls['quantity']?.invalid && productForm.controls['quantity']?.touched">
-        Quantity is required and must be positive.
-      </div>
+      
     </div>
 
     <div class="boxAlign">
@@ -48,20 +41,16 @@
     <div class="boxAlign">
       <label for="seller">Seller:</label>
       <input type="text" placeholder="Enter seller name" name="seller" id="seller" [(ngModel)]="u.seller" required />
-      <div class="error-message" *ngIf="productForm.controls['seller']?.invalid && productForm.controls['seller']?.touched">
-        Seller is required.
-      </div>
+      
     </div>
 
     <div class="boxAlign">
       <label for="buyer">Buyer:</label>
       <input type="text" placeholder="Enter buyer name" name="buyer" id="buyer" [(ngModel)]="u.buyer" required />
-      <div class="error-message" *ngIf="productForm.controls['buyer']?.invalid && productForm.controls['buyer']?.touched">
-        Buyer is required.
-      </div>
+     
     </div>
     <div  >
-      <button type="submit"class="btn btn-success">
+      <button type="submit" class="btn btn-success">
         {{ isUpdate ? 'Update' : 'Submit' }}
       </button>
     </div>
