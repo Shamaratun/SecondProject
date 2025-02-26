@@ -3,13 +3,14 @@ import {RouterOutlet} from '@angular/router';
 
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { ActionComponent } from "./page/action/action.component";
+// import { ActionComponent } from "./page/action/action.component";
+// import { HarryPotterComponent } from './harry-potter/harry-potter.component';
 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, ActionComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
