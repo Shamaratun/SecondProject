@@ -8,26 +8,27 @@ import { HarryPotterService } from '../services/harry-potter.service';
   styleUrl: './harry-potter.component.css',
 })
 export class HarryPotterComponent implements OnInit {
-  spells: any;
+  spells: any[] = [];
   constructor(private harryPotterService: HarryPotterService) {}
 
   ngOnInit(): void {
-    console.log('Harry Potter ');
+    console.log('Harry Potter');
     this.fetchSpells();
   }
   getSpells() {
     this.harryPotterService
       .getSpells()
-      .subscribe(spells => this.spells = spells);
+      .subscribe((spells) => (this.spells = spells));
   }
+
   fetchSpells() {
     this.harryPotterService.getSpells().subscribe(
       (data) => {
         this.spells = data;
-        console.log('fetched Spells', this.spells);
+        console.log('Fetched spells:', this.spells);
       },
       (error) => {
-        console.log('Error fetching Spells :', error);
+        console.log('Error fetching spells:', error);
       }
     );
   }

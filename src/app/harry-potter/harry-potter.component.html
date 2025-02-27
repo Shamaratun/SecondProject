@@ -1,39 +1,23 @@
+<div class="container m-4">
+  <h2 class="text-center">Harry Potter</h2>
 
-<div class="container">
-    <h2>Harry Potter Spells</h2>
-    <table class="table table-striped" style="text-align: justify;">
+  <table class="table table-border">
       <thead>
-        <tr>
-          <th>#</th>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Spell Name</th>
-          <th>Description</th>
-          
-        </tr>
-      </thead>
-      <tbody style="text-align: justify;">
-        <!-- Keep your @for line, but remember Angular uses *ngFor normally -->
-        @for (spell of spells; track spell) {
           <tr>
-            <td>{{ spell.indexOf(spell) + 1 }}</td>
-            <td>{{ spell.id }}</td>
-            <td >{{ spell.name }}</td>
-          
-            <td>{{ spell.description }}</td>
-            
-            <!-- <td>
-              <button class="btn btn-primary btn-outline-warning"
-                      style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                      (click)="editUser(spell)">Update</button>
-              <br>
-              <button class="btn btn-outline-danger btn-secondary"
-                      style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                      (click)="deleteUser(spell)">Delete</button>
-            </td> -->
+              <th>#</th>
+              <th>ID</th>
+              <th>Spell Name</th>
+              <th>Description</th>
           </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  
+          </thead>
+          <tbody>
+              @for (spell of spells; track spell) {
+                  <tr>
+                      <td>{{spells.indexOf(spell) + 1}}</td>
+                      <td>{{spell.id}}</td>
+                      <td>{{spell.name}}</td>
+                      <td>{{spell.description}}</td>
+                  </tr>
+              }
+          </tbody>    
+      </table>

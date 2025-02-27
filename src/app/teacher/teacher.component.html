@@ -1,0 +1,90 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+   Add Teacher
+  </button><div class="container m-4">
+    <h2 class="text-center">TeachersCRUD</h2>
+  
+    <table class="table table-border">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>School Name</th>
+                <th>IsHeadTeacher</th>
+                <th>Assigned Subject</th>
+                <th>Salary </th>
+                <th>Joining Date </th>
+                <th>IsAggressive </th>
+               
+            </tr>
+            </thead>
+            <tbody>
+                @for (teacher of teachers; track teacher) {
+                    <tr>
+                        <td>{{teachers.indexOf(teacher) + 1}}</td>
+                        <td>{{teacher.id}}</td>
+                        <td>{{teacher.name}}</td>
+                        <td>{{teacher.schoolName}}</td>
+                        <td>{{teacher.isHeadTeacher}}</td>
+                        <td>{{teacher.assignedSubjects}}</td>
+                        <td>{{teacher.salary}}</td>
+                        <td>{{teacher.joiningDate}}</td>
+                        <td>{{teacher.isAggressive}}</td>
+                    </tr>
+                }
+            </tbody>    
+        </table>
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fs-5" id="staticBackdropLabel">Add Teacher</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form (submit)="addTeacher()">
+                <div class="form-group">
+                  <label for="id">ID</label>
+                  <input type="text" class="form-control" id="id" placeholder="Enter ID" [(ngModel)]="newTeacher.id">
+                </div>
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter Name" [(ngModel)]="newTeacher.name">
+                </div>
+                <div class="form-group">
+                  <label for="schoolName">School Name</label>
+                  <input type="text" class="form-control" id="schoolName" placeholder="Enter School Name" [(ngModel)]="newTeacher.schoolName">
+                </div>
+                <div class="form-group">
+                  <label for="isHeadTeacher">Is Head Teacher</label>
+                  <input type="text" class="form-control" id="isHeadTeacher" placeholder="Enter Is Head Teacher" [(ngModel)]="newTeacher.isHeadTeacher">
+                </div>
+                <div class="form-group">
+                  <label for="assignedSubjects">Assigned Subjects</label>
+                  <input type="text" class="form-control" id="assignedSubjects" placeholder="Enter Assigned Subjects" [(ngModel)]="newTeacher.assignedSubjects">
+                </div>
+                <div class="form-group">
+                  <label for="salary">Salary</label>
+                  <input type="text" class="form-control" id="salary" placeholder="Enter Salary" [(ngModel)]="newTeacher.salary">
+                </div>
+                <div class="form-group">
+                  <label for="joiningDate">Joining Date</label>
+                  <input type="text" class="form-control" id="joiningDate" placeholder="Enter Joining Date" [(ngModel)]="newTeacher.joiningDate">
+                </div>
+                <div class="form-group">
+                  <label for="isAggressive">Is Aggressive</label>
+                  <input type="text" class="form-control" id="isAggressive" placeholder="Enter Is Aggressive" [(ngModel)]="newTeacher.isAggressive">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
