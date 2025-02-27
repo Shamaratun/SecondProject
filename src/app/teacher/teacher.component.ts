@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TeacherService } from '../services/teacher.service';
 import * as bootstrap from 'bootstrap';
-
-
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-teacher',
+  selector: 'app-teachers',
   imports: [FormsModule, CommonModule],
   templateUrl: './teacher.component.html',
   styleUrls: ['./teacher.component.css'],
@@ -15,44 +13,60 @@ import { CommonModule } from '@angular/common';
 export class TeacherComponent implements OnInit {
 
   teachers: Teacher[] = []; 
- newTeacher: Teacher = {
-   id: 0, name: "", schoolName: "", isHeadTeacher: false, assignedSubjects: "", salary: 0, joiningDate: new Date(), isAggressive: false,
-  
- }; 
+  newTeacher1: Teacher = {
+    id: 0,
+    name: '',
+    schoolName: '',
+    isHeadTeacher: false,
+    assignedSubject: '',
+    salary: 0,
+    joiningDate: new Date(),
+    isAggressive: false
+  };
+
+  newTeacher: Teacher = new Teacher(0, '', '', false, '', 0, new Date(), false);
+
  private modal: bootstrap.Modal |null = null;
+ 
   constructor(private teacherService: TeacherService) {} 
+
   ngOnInit(): void {
     console.log('Teacher component initialized');
-    this.fetchTeachers(); 
-  }
-  getTeachers():void {this.teacherService.getTeachers().subscribe((teachers:any) => (this.teachers = teachers));}  
+    this.fetchTeachers();
 
-  fetchTeachers(): void {this.teacherService.getTeachers().subscribe((data: any) => {
+    const modalElement = document.getElementById('teacherModal')!;
+    if (modalElement) {
+      this.modal = new bootstrap.Modal(modalElement);
+    }
+  }
+  // getTeachers():void {
+  //   this.teacherService.getTeachers().subscribe((teachers) => (this.teachers = teachers));}  
+
+  fetchTeachers(){
+    this.teacherService.getTeachers().subscribe(
+      (data) => {
   this.teachers = data;
         console.log('Fetched teachers:', this.teachers);
       },
-      (error: any) => {
+      (error) => {
         console.error('Error fetching teachers:', error);
+        this.teachers = [];
       }
     );
   }
-
- 
   addTeacher() {
-   
-        console.log('Added teacher:',this.teachers);
-        this . teacherService.addTeacher(this.teachers).subscribe(
-      (response: any) => {
-        debugger
+        console.log('Added teachers:',this.newTeacher);
+        this . teacherService.addTeacher(this.newTeacher).subscribe(
+      (response) => {
+        debugger;
         this.teachers.push(response);
         this . modal?.hide();
         this .resetForm();
+      },
+      (error) => {
+        console.error('Error adding teachers:', error);
       }
-    ),
-      (error: any) => {
-        console.error('Error adding teacher:', error);
-      }
-    ;
+        );
   }
   openModal() {
     const modalElement = document.getElementById('teacherModal')!;
@@ -62,45 +76,41 @@ export class TeacherComponent implements OnInit {
   }
   } 
   resetForm() {
-    this . newTeacher  = {id: 0, name: "", schoolName: "", isHeadTeacher: false, assignedSubjects: "", salary: 0, joiningDate: new Date(), isAggressive: false};
-  }
+    this.newTeacher=new Teacher (0,"","",false,"",0,new Date(),false);
+    this . newTeacher= {
+      id: 0,
+       name: "", 
+       schoolName: "", 
+       isHeadTeacher: false,
+        assignedSubject: "", 
+        salary: 0,
+         joiningDate: new Date(), 
+         isAggressive: false};
+  };
 }
-class Teacher {
- 
+truckByTeacher(index: number, teacher: Teacher) {
+  return teacher.id;
+}
+}
+export class Teacher {
   id: number;
   name: string;
   schoolName: string;
   isHeadTeacher: boolean;
-  assignedSubjects: string;
+  assignedSubject: string; 
   salary: number;
   joiningDate: Date;
   isAggressive: boolean;
 
-  constructor(
-    id: number,
-    name: string,
-    schoolName: string,
-    isHeadTeacher: boolean,
-    assignedSubjects: string,
-    salary: number,
-    joiningDate: Date,
-    isAggressive: boolean
-  ) {
+  constructor(id: number, name: string,schoolName: string, isHeadTeacher: boolean,assignedSubjects: string,salary: number,joiningDate: Date,isAggressive: boolean) {
     this.id = id;
     this.name = name;
     this.schoolName = schoolName;
     this.isHeadTeacher = isHeadTeacher;
-    this.assignedSubjects = assignedSubjects;
+    this.assignedSubject = assignedSubjects;
     this.salary = salary;
     this.joiningDate = joiningDate;
     this.isAggressive = isAggressive;
   }
-}
-function getTeachers() {
-  throw new Error('Function not implemented.');
-}
-
-function openModal() {
-  throw new Error('Function not implemented.');
 }
 

@@ -11,7 +11,7 @@ export class TeacherService {
   constructor(private http: HttpClient) {}
 
   getTeachers(): Observable<any> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl);
   }
  addTeacher(teacher: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, teacher);
