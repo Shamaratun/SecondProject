@@ -88,10 +88,10 @@ export class TeacherComponent implements OnInit {
          isAggressive: false};
   };
 }
-truckByTeacher(index: number, teacher: Teacher) {
-  return teacher.id;
-}
-}
+// truckByTeacher(index: number, teacher: Teacher) {
+//   return teacher.id;
+
+
 export class Teacher {
   id: number;
   name: string;
