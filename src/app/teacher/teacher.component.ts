@@ -122,18 +122,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Teacher } from '../model/teacher.model';
 
-
-
 @Component({
   selector: 'app-teacher',
   imports: [FormsModule, CommonModule],
   templateUrl: './teacher.component.html',
-  styleUrl: './teacher.component.css'
+  styleUrl: './teacher.component.css',
 })
 export class TeacherComponent implements OnInit {
-
-
-  
   teachers: Teacher[] = [];
 
   newTeacher1: Teacher = {
@@ -144,14 +139,14 @@ export class TeacherComponent implements OnInit {
     assignedSubject: '',
     salary: 0,
     joiningDate: new Date(),
-    isAggressive: false
+    isAggressive: false,
   };
 
   newTeacher: Teacher = new Teacher(0, '', '', false, '', 0, new Date(), false);
-isEditing: boolean = false;
+  isEditing: boolean = false;
   private modal: bootstrap.Modal | null = null;
 
-  constructor(private teacherService: TeacherService) { }
+  constructor(private teacherService: TeacherService) {}
 
   ngOnInit(): void {
     console.log('Teacher component initialized');
@@ -177,45 +172,45 @@ isEditing: boolean = false;
   }
 
   SaveTeacher() {
-   if(this.newTeacher){
-    if(this.isEditing){
-    console.log('Updating teacher:', this.newTeacher);
-   
-    this.teacherService.updateTeacher(this.newTeacher).subscribe(
-      (response ) => {
-        const index = this.teachers.findIndex(t => t.id === response.id);
-        if (index !== -1) {
-          this.teachers[index] = response;
-        } 
-          this.modal?.hide();
-      },
-      (error: any) => {
-        console.error('Error updating teacher:', error);
-        }
-      );
-    }else{
-      console.log('Adding teacher:', this.newTeacher);
-     
-      this.teacherService.addTeacher(this.newTeacher).subscribe(
-        (response) => {
-          debugger;
-          this.teachers.push(response);
-          this.modal?.hide();
-          this.resetForm();
-        },
-        (error) => {
-          console.error('Error adding teacher:', error);
-        }
-      );
+    if (this.newTeacher) {
+      if (this.isEditing) {
+        console.log('Updating teacher:', this.newTeacher);
+
+        this.teacherService.updateTeacher(this.newTeacher).subscribe(
+          (response) => {
+            const index = this.teachers.findIndex((t) => t.id === response.id);
+            if (index !== -1) {
+              this.teachers[index] = response;
+            }
+            this.modal?.hide();
+          },
+          (error: any) => {
+            console.error('Error updating teacher:', error);
+          }
+        );
+      } else {
+        console.log('Adding teacher:', this.newTeacher);
+
+        this.teacherService.addTeacher(this.newTeacher).subscribe(
+          (response) => {
+            debugger;
+            this.teachers.push(response);
+            this.modal?.hide();
+            this.resetForm();
+          },
+          (error) => {
+            console.error('Error adding teacher:', error);
+          }
+        );
+      }
     }
-  }}
+  }
 
   openModal(teacher?: Teacher) {
-    if(teacher){
-      this.newTeacher = {...teacher};
+    if (teacher) {
+      this.newTeacher = { ...teacher };
       this.isEditing = true;
-
-    }else{
+    } else {
       this.newTeacher = new Teacher(0, '', '', false, '', 0, new Date(), false);
       this.isEditing = false;
     }
@@ -236,21 +231,19 @@ isEditing: boolean = false;
       assignedSubject: '',
       salary: 0,
       joiningDate: new Date(),
-      isAggressive: false
+      isAggressive: false,
     };
   }
 
   trackByTeacher(index: number, teacher: Teacher) {
     return teacher.id;
   }
- 
 
   deleteTeacher(id: number) {
     if (confirm('Are you sure you want to delete this teacher?')) {
       this.teacherService.deleteTeacher(id).subscribe(
         () => {
-        
-          this.teachers = this.teachers.filter(t => t.id !== id);
+          this.teachers = this.teachers.filter((t) => t.id !== id);
           alert('Teacher deleted successfully');
         },
         (error) => {
