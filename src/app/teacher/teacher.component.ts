@@ -120,6 +120,9 @@ import { TeacherService } from '../services/teacher.service';
 import * as bootstrap from 'bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Teacher } from '../model/teacher.model';
+
+
 
 @Component({
   selector: 'app-teacher',
@@ -128,6 +131,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './teacher.component.css'
 })
 export class TeacherComponent implements OnInit {
+
+
+  
   teachers: Teacher[] = [];
 
   newTeacher1: Teacher = {
@@ -142,7 +148,7 @@ export class TeacherComponent implements OnInit {
   };
 
   newTeacher: Teacher = new Teacher(0, '', '', false, '', 0, new Date(), false);
-
+isEditing: boolean = false;
   private modal: bootstrap.Modal | null = null;
 
   constructor(private teacherService: TeacherService) { }
@@ -170,23 +176,49 @@ export class TeacherComponent implements OnInit {
     );
   }
 
-  addTeacher() {
-    console.log('Adding teacher:', this.newTeacher);
-    // debugger;
-    this.teacherService.addTeacher(this.newTeacher).subscribe(
-      (response) => {
-        debugger;
-        this.teachers.push(response);
-        this.modal?.hide();
-        this.resetForm();
+  SaveTeacher() {
+   if(this.newTeacher){
+    if(this.isEditing){
+    console.log('Updating teacher:', this.newTeacher);
+   
+    this.teacherService.updateTeacher(this.newTeacher).subscribe(
+      (response ) => {
+        const index = this.teachers.findIndex(t => t.id === response.id);
+        if (index !== -1) {
+          this.teachers[index] = response;
+        } 
+          this.modal?.hide();
       },
-      (error) => {
-        console.error('Error adding teacher:', error);
-      }
-    );
-  }
+      (error: any) => {
+        console.error('Error updating teacher:', error);
+        }
+      );
+    }else{
+      console.log('Adding teacher:', this.newTeacher);
+     
+      this.teacherService.addTeacher(this.newTeacher).subscribe(
+        (response) => {
+          debugger;
+          this.teachers.push(response);
+          this.modal?.hide();
+          this.resetForm();
+        },
+        (error) => {
+          console.error('Error adding teacher:', error);
+        }
+      );
+    }
+  }}
 
-  openModal() {
+  openModal(teacher?: Teacher) {
+    if(teacher){
+      this.newTeacher = {...teacher};
+      this.isEditing = true;
+
+    }else{
+      this.newTeacher = new Teacher(0, '', '', false, '', 0, new Date(), false);
+      this.isEditing = false;
+    }
     const modalElement = document.getElementById('teacherModal');
     if (modalElement) {
       this.modal = new bootstrap.Modal(modalElement);
@@ -211,27 +243,20 @@ export class TeacherComponent implements OnInit {
   trackByTeacher(index: number, teacher: Teacher) {
     return teacher.id;
   }
+ 
 
-}
-
-export class Teacher {
-  id: number;
-  name: string;
-  schoolName: string;
-  isHeadTeacher: boolean;
-  assignedSubject: string;
-  salary: number;
-  joiningDate: Date;
-  isAggressive: boolean;
-
-  constructor(id: number, name: string, schoolName: string, isHeadTeacher: boolean, assignedSubject: string, salary: number, joiningDate: Date, isAggressive: boolean) {
-    this.id = id;
-    this.name = name;
-    this.schoolName = schoolName;
-    this.isHeadTeacher = isHeadTeacher;
-    this.assignedSubject = assignedSubject;
-    this.salary = salary;
-    this.joiningDate = joiningDate;
-    this.isAggressive = isAggressive;
+  deleteTeacher(id: number) {
+    if (confirm('Are you sure you want to delete this teacher?')) {
+      this.teacherService.deleteTeacher(id).subscribe(
+        () => {
+        
+          this.teachers = this.teachers.filter(t => t.id !== id);
+          alert('Teacher deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting teacher:', error);
+        }
+      );
+    }
   }
-} 
+}

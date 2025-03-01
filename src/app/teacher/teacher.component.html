@@ -16,6 +16,7 @@
               <th>Salary</th>
               <th>Joining Date</th>
               <th>Aggressive</th>
+              <th>Action</th>
           </tr>
       </thead>
       <tbody>
@@ -30,6 +31,10 @@
               <td>{{ teacher.salary }}</td>
               <td>{{ teacher.joiningDate | date:'yyyy-MM-dd' }}</td>
               <td>{{ teacher.isAggressive ? 'Yes' : 'No' }}</td>
+              <td><button class="btn btn-primary btn-outline-warning " style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;" (click)="openModal(teacher)">Update</button><br>
+
+                <button class="btn btn-outline-danger btn-secondary " style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"(click)="deleteTeacher(teacher.id)">Delete</button>
+            </td>
           </tr>
           }
       </tbody>
@@ -45,7 +50,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              <form (submit)="addTeacher()">
+              <form (submit)="SaveTeacher()">
                   <div class="mb-3">
                       <label class="form-label">Name</label>
                       <input type="text" class="form-control" [(ngModel)]="newTeacher.name" name="name" required />
